@@ -1,0 +1,49 @@
+<div class="card sombra-multicolor">
+  <h3 class="card-title p-2">Lista de héroes</h3>
+  <div class="card-body p-2">
+    <div *ngIf="hayHeroes()">
+
+      <table class="table table-hover table-sm">
+        <thead>
+        <tr class="table-dark">
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Poder</th>
+          <th>Honor</th>
+          <th>Ataque</th>
+          <th>Defensa</th>
+          <th>Vida</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr (click)="onSeleccionarHeroe(heroe)" *ngFor="let heroe of listadoHeroes" [class]="
+                                    {
+                                        'table-info': heroe.honor > 70,
+                                        'table-danger' : heroe.honor < -70
+                                    }">
+          <td>
+            <img *ngIf="heroe.imagen" [src]="heroe.imagen" class="avatar" [alt]="'Avatar de ' + heroe.nombre" />
+            <img *ngIf="!heroe.imagen" src="https://borilio.github.io/curso-angular/img/avatars/defaultheroe.svg" class="avatar" [alt]="'Avatar de ' + heroe.nombre" />
+          </td>
+          <td>{{heroe.nombre}}</td>
+          <td [class.table-warning]="heroe.poder > 200">
+            {{heroe.poder}}
+          </td>
+          <td>{{ heroe.honor | honor }}</td>
+          <td>{{heroe.ataque}}</td>
+          <td>{{heroe.defensa}}</td>
+          <td>{{heroe.vida}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <div *ngIf="!hayHeroes()" class="alert alert-danger">
+      <span>No hay héroes todavía en la lista</span>
+    </div>
+  </div>
+  <img class="card-img-bottom" src="/assets/img/banner.png" alt="Banner de la tarjeta" />
+  <div class="card-footer">
+    <button (click)="actualizar()" class="btn btn-primary"><i class="bi bi-arrow-clockwise"></i></button>
+  </div>
+</div>
